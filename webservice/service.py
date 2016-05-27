@@ -5,7 +5,7 @@ import mysql.connector
 
 app = Flask(__name__)
 
-db = mysql.connector.connect(host='localhost',user='root',passwd='Ecorner@2016',db='BDECorner')
+db = mysql.connector.connect(host='localhost',user='root',passwd='Ecorner@285',db='bdecorner')
 
 @app.route('/localizar/<uid>')
 def localizar(uid):
@@ -14,7 +14,9 @@ def localizar(uid):
 	cur = db.cursor()
 	cur.execute(sql)
 	results = cur.fetchall()
-	dados = 'Dados de retorno: '
+	if results is None:
+		return ''
+	dados=''
 	for row in results:
 		dados = dados+str(row[0])+', '+str(row[1])+', '+str(row[2])+', '+str(row[3])+', '+str(row[4])+', '+str(row[5])+', '+str(row[6])+', '+str(row[7])
 	return dados
